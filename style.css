@@ -11,9 +11,14 @@ a{
 .img-center {
 	margin: 0 auto;
 }
-h1{
-    display:inline;
+.title-block{
+    background-color: #888888;
+}
+
+.center{
+    display:inline-block;
     text-align:center;
+    margin:auto;
 }
 .score{
     display:inline;
@@ -77,5 +82,12 @@ footer {
     border-width: 5px;
 }
 #map{
-    height:600px;
+    /* Firefox */
+    height: -moz-calc(100%);
+    /* WebKit */
+    height: -webkit-calc(100%);
+    /* Opera */
+    height: -o-calc(100%);
+    /* Standard */
+    height: calc(100%);
 }
