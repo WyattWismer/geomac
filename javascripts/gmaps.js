@@ -1,5 +1,4 @@
 window.onload = function() {
-    alert("Loaded Page")
     if (navigator.geolocation){
         navigator.geolocation.getCurrentPosition(updateLocation);
     }
