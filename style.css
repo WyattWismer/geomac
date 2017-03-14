@@ -11,7 +11,20 @@ a{
 .img-center {
 	margin: 0 auto;
 }
-
+h1{
+    display:inline;
+    text-align:center;
+}
+.score{
+    display:inline;
+    font-size: 30px;
+    font-style: bold;
+    background-color: #33cc33;
+    color: #ffffff;
+    padding: 5px;
+    margin: 50px;
+    border-radius:3px;
+}
 
 footer {
     margin: 50px 0;
