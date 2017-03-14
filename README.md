@@ -1,2 +1,2 @@
 # geomac
-Geolocation competitive programming game
+Geolocation competitive programming game.
