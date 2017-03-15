@@ -1,26 +1,32 @@
 var firebase = require("firebase");
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-
+app.use(express.static(__dirname ));
 app.get('/', function(req,res){
-	res.sendFile(__dirname + '/index.html')
+	res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection', function(socket){
 
 	
 	socket.on('marker request', function(){
+		var data;
+
+    return database.ref('markers/0').once('value').then(function(snapshot){ 
+      data = snapshot.toJSON();
+    });
 		
-		
+    io.emit('marker request',data);
 	});
 
 });
 
 
-http.listen(80, function(){
-	console.log('listening on *:80')
+app.listen(3000, function(){
+	console.log('listening on *:3000')
 });
 
 //firebase
