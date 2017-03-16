@@ -19,7 +19,6 @@ $(document).ready(function () {
         zoom: 16
     });
 
-    mymap.on('load', mapLoaded);
     //
     mymap.maxBounds = bounds;
 
@@ -42,6 +41,11 @@ $(document).ready(function () {
             //console.log([e.coords.latitude, e.coords.longitude]);
             var posPlayer = [e.coords.latitude, e.coords.longitude];
 
+            //Create player marker
+            var mPlayer = L.circle(posPlayer, {
+                radius: 6
+            }).addTo(mymap);
+
             for (var i = 0; i < mkdata.Markers.Names.length; i++) {
                 console.log("Draw Circle");
                 L.circle(mkdata.Markers.Cords[i], {
@@ -53,9 +57,18 @@ $(document).ready(function () {
             }
 
 
+        }, function (msg) {
+            alert("Sorry, no position available.");
+        }, {
+                
+                maximumAge: 30000,
+                timeout: 27000,
+                enableHighAccuracy: true
+            }
 
 
-        });
+        );
+
     }
     else {
         console.log("Failed to retrive geolocation");
