@@ -6,17 +6,20 @@ $.getJSON("public/javascripts/main_markers.json", function (json) {
 
 $(document).ready(function () {
     //Declare variables
-
     var bounds = [
         [43.25020423714625, -79.93532180786134],
         [43.27486195260225, -79.90146160125734]
     ];
 
     var out = [];
+
     var mymap = L.map('map', {
         maxBounds: bounds,
-    }).setView([43.26158, -79.918], 16);
+        center: [43.26158, -79.918],
+        zoom: 16
+    });
 
+    mymap.on('load', mapLoaded);
     //
     mymap.maxBounds = bounds;
 
@@ -33,16 +36,31 @@ $(document).ready(function () {
 
     //Declare Map Objects
 
+    if (navigator.geolocation) {
+        console.log("Location On");
+        navigator.geolocation.getCurrentPosition(function (e) {
+            //console.log([e.coords.latitude, e.coords.longitude]);
+            var posPlayer = [e.coords.latitude, e.coords.longitude];
+
+            for (var i = 0; i < mkdata.Markers.Names.length; i++) {
+                console.log("Draw Circle");
+                L.circle(mkdata.Markers.Cords[i], {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.5,
+                    radius: 6
+                }).addTo(mymap).bindPopup(mkdata.Markers.Names[i]);
+            }
+
+
+
+
+        });
+    }
+    else {
+        console.log("Failed to retrive geolocation");
+    }
+
+
     mymap.on('click', onMapClick);
-
-    for (var i = 0; i < mkdata.Markers.Names.length; i++)
-        L.circle(mkdata.Markers.Cords[i], {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.5,
-            radius: 6
-        }).addTo(mymap).bindPopup(mkdata.Markers.Names[i]);
 });
-
-
-
