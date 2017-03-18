@@ -33,6 +33,8 @@ $(document).ready(function () {
         console.log([e.latlng.lat, e.latlng.lng]);
     }
 
+
+
     //Declare Map Objects
 
     if (navigator.geolocation) {
@@ -46,11 +48,29 @@ $(document).ready(function () {
                 radius: 6
             }).addTo(mymap);
 
+            var scanArea = L.circle(posPlayer,{
+                radius: 100,
+                color :'white',
+                fillOpacity: 0.1
+            }).addTo(mymap);
+
+            var markerColour = 'red'
+
+
             for (var i = 0; i < mkdata.Markers.Names.length; i++) {
-                console.log("Draw Circle");
+                
+                console.log(distanceBetween(posPlayer,mkdata.Markers.Cords[i]));
+
+                if (distanceBetween(posPlayer,mkdata.Markers.Cords[i])<100){
+                    markerColour = 'green';
+                }
+                else{
+                    markerColour = 'red';
+                }
+
                 L.circle(mkdata.Markers.Cords[i], {
-                    color: 'red',
-                    fillColor: '#f03',
+                    color: markerColour,
+                    //fillColor: '#f03',
                     fillOpacity: 0.5,
                     radius: 6
                 }).addTo(mymap).bindPopup(mkdata.Markers.Names[i]);
@@ -77,3 +97,9 @@ $(document).ready(function () {
 
     mymap.on('click', onMapClick);
 });
+
+console.log("running");
+
+function distanceBetween(cord1,cord2){
+    return ((cord1[0]-cord2[0])**2+(cord1[1] - cord2[1])**2)**0.5*100000;
+}
